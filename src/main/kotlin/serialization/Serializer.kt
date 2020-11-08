@@ -61,6 +61,7 @@ private fun StringBuilder.serializePropertyValue(value: Any?) {
         is String -> serializeString(value)
         is Number, is Boolean -> append(value.toString())
         is List<*> -> serializeList(value)
+        is Map<*, *> -> serializeMap(value)
         else -> serializeObject(value)
     }
 }
@@ -75,6 +76,14 @@ private fun StringBuilder.serializeString(s: String) {
     append('\"')
     s.forEach { append(it.escape()) }
     append('\"')
+}
+
+private fun StringBuilder.serializeMap(m: Map<*, *>) {
+    m.toList().joinToStringBuilder(this, prefix = "{", postfix = "}"){
+        (k, v) -> serializeString(k.toString())
+        append(": ")
+        serializePropertyValue(v)
+    }
 }
 
 private fun Char.escape(): Any =
