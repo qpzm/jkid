@@ -24,6 +24,7 @@ interface Token {
     data class LongValue(override val value: Long) : ValueToken
     data class DoubleValue(override val value: Double) : ValueToken
 
+    // Q. Why this is val?
     companion object {
         val TRUE = BoolValue(true)
         val FALSE = BoolValue(false)

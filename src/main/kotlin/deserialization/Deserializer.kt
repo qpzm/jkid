@@ -63,8 +63,10 @@ fun Seed.createSeedForType(paramType: Type, isList: Boolean): Seed {
         val parameterizedType = paramType as? ParameterizedType
             ?: throw UnsupportedOperationException("Unsupported parameter type $this")
 
-        println(parameterizedType.actualTypeArguments)
-        val elementType = parameterizedType.actualTypeArguments[0]
+        // println(parameterizedType.actualTypeArguments[0])
+        // println(parameterizedType.actualTypeArguments[1])
+        // elementType should be the value type of a map. because it should create the instance of elementType
+        val elementType = parameterizedType.actualTypeArguments[1] // K, V 2 type arguments
         return MapSeed(elementType, classInfoCache)
     }
     return ObjectSeed(paramClass.kotlin, classInfoCache)
